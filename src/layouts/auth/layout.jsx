@@ -1,7 +1,7 @@
-import Link from "@mui/material/Link"
+// import Link from "@mui/material/Link"
 import Alert from "@mui/material/Alert"
 
-import { RouterLink } from "src/routes/components"
+// import { RouterLink } from "src/routes/components"
 
 import { stylesMode } from "src/theme/styles"
 
@@ -38,16 +38,6 @@ export function AuthLayout({ sx, children, header }) {
               </Alert>
             ),
             leftArea: <Logo />,
-            rightArea: (
-              <Link
-                component={RouterLink}
-                href="#"
-                color="inherit"
-                sx={{ typography: "subtitle2" }}
-              >
-                Need help?
-              </Link>
-            )
           }}
         />
       }

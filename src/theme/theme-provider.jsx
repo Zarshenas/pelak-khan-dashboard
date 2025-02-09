@@ -5,7 +5,6 @@ import { createTheme } from "./create-theme"
 
 export function ThemeProvider({ children }) {
   const theme = createTheme()
-
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />

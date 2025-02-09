@@ -20,6 +20,49 @@ import { fToNow } from "src/utils/format-time"
 import { Iconify } from "src/components/iconify/iconify"
 import { Scrollbar } from "src/components/scrollbar/scrollbar"
 
+
+// ----------------------------------------------------------------------
+
+function NotificationItem({ notification }) {
+  const { avatarUrl, title } = renderContent(notification)
+
+  return (
+    <ListItemButton
+      sx={{
+        py: 1.5,
+        px: 2.5,
+        mt: "1px",
+        ...(notification.isUnRead && {
+          bgcolor: "action.selected"
+        })
+      }}
+    >
+      <ListItemAvatar>
+        <Avatar sx={{ bgcolor: "background.neutral" }}>{avatarUrl}</Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={title}
+        secondary={
+          <Typography
+            variant="caption"
+            sx={{
+              mt: 0.5,
+              gap: 0.5,
+              display: "flex",
+              alignItems: "center",
+              color: "text.disabled"
+            }}
+          >
+            <Iconify width={14} icon="solar:clock-circle-outline" />
+            {fToNow(notification.postedAt)}
+          </Typography>
+        }
+      />
+    </ListItemButton>
+  )
+}
+// ----------------------------------------------------------------------
+
 export function NotificationsPopover({ data = [], sx, ...other }) {
   const [notifications, setNotifications] = useState(data)
 
@@ -153,46 +196,7 @@ export function NotificationsPopover({ data = [], sx, ...other }) {
   )
 }
 
-// ----------------------------------------------------------------------
 
-function NotificationItem({ notification }) {
-  const { avatarUrl, title } = renderContent(notification)
-
-  return (
-    <ListItemButton
-      sx={{
-        py: 1.5,
-        px: 2.5,
-        mt: "1px",
-        ...(notification.isUnRead && {
-          bgcolor: "action.selected"
-        })
-      }}
-    >
-      <ListItemAvatar>
-        <Avatar sx={{ bgcolor: "background.neutral" }}>{avatarUrl}</Avatar>
-      </ListItemAvatar>
-      <ListItemText
-        primary={title}
-        secondary={
-          <Typography
-            variant="caption"
-            sx={{
-              mt: 0.5,
-              gap: 0.5,
-              display: "flex",
-              alignItems: "center",
-              color: "text.disabled"
-            }}
-          >
-            <Iconify width={14} icon="solar:clock-circle-outline" />
-            {fToNow(notification.postedAt)}
-          </Typography>
-        }
-      />
-    </ListItemButton>
-  )
-}
 
 // ----------------------------------------------------------------------
 

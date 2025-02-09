@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 
 import Box from "@mui/material/Box"
 import Card from "@mui/material/Card"
@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography"
 import TableContainer from "@mui/material/TableContainer"
 import TablePagination from "@mui/material/TablePagination"
 
+import Cookies from "js-cookie"
+import { Users } from "src/api/Users"
 import { _users } from "src/_mock"
 import { DashboardContent } from "src/layouts/dashboard"
 
@@ -22,110 +24,131 @@ import { TableEmptyRows } from "../table-empty-rows"
 import { UserTableToolbar } from "../user-table-toolbar"
 import { emptyRows, applyFilter, getComparator } from "../utils"
 
+
+
 // ----------------------------------------------------------------------
 
 export function UserView() {
   const table = useTable()
+  const [users , setUsers] = useState({})
 
   const [filterName, setFilterName] = useState("")
-
+  useEffect( ()=>{
+    const getUser =async()=>{
+      const token = Cookies.get("access")
+      try {
+        const response = await Users(token);
+        if (response.status === 200) {
+          setUsers(response.data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUser();
+  },[])
   const dataFiltered = applyFilter({
     inputData: _users,
     comparator: getComparator(table.order, table.orderBy),
     filterName
   })
-
   const notFound = !dataFiltered.length && !!filterName
-
+console.log(dataFiltered)
+console.log(users)
   return (
     <DashboardContent>
+      {users.length?
+      <>
       <Box display="flex" alignItems="center" mb={5}>
-        <Typography variant="h4" flexGrow={1}>
-          Users
-        </Typography>
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="mingcute:add-line" />}
-        >
-          New user
-        </Button>
-      </Box>
+      <Typography variant="h4" flexGrow={1}>
+        Users
+      </Typography>
+      <Button
+        variant="contained"
+        color="inherit"
+        startIcon={<Iconify icon="mingcute:add-line" />}
+      >
+        New user
+      </Button>
+    </Box>
 
-      <Card>
-        <UserTableToolbar
-          numSelected={table.selected.length}
-          filterName={filterName}
-          onFilterName={event => {
-            setFilterName(event.target.value)
-            table.onResetPage()
-          }}
-        />
+    <Card>
+      <UserTableToolbar
+        numSelected={table.selected.length}
+        filterName={filterName}
+        onFilterName={event => {
+          setFilterName(event.target.value)
+          table.onResetPage()
+        }}
+      />
 
-        <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
-              <UserTableHead
-                order={table.order}
-                orderBy={table.orderBy}
-                rowCount={_users.length}
-                numSelected={table.selected.length}
-                onSort={table.onSort}
-                onSelectAllRows={checked =>
-                  table.onSelectAllRows(
-                    checked,
-                    _users.map(user => user.id)
-                  )
-                }
-                headLabel={[
-                  { id: "name", label: "Name" },
-                  { id: "company", label: "Company" },
-                  { id: "role", label: "Role" },
-                  { id: "isVerified", label: "Verified", align: "center" },
-                  { id: "status", label: "Status" },
-                  { id: "" }
-                ]}
+      <Scrollbar>
+        <TableContainer sx={{ overflow: "unset" }}>
+          <Table sx={{ minWidth: 800 }}>
+            <UserTableHead
+              order={table.order}
+              orderBy={table.orderBy}
+              rowCount={_users.length}
+              numSelected={table.selected.length}
+              onSort={table.onSort}
+              onSelectAllRows={checked =>
+                table.onSelectAllRows(
+                  checked,
+                  _users.map(user => user.id)
+                )
+              }
+              headLabel={[
+                { id: "id", label: "ID" },
+                { id: "first_name", label: "نام" },
+                { id: "last_name", label: "نام خانوادگی" },
+                { id: "username", label: "نام کاربری" },
+                { id: "role", label: "نقش" },
+                // { id: "is_active", label: "Verified", align: "center" },
+                { id: "" }
+              ]}
+            />
+            <TableBody>
+              {users.slice(
+                  table.page * table.rowsPerPage,
+                  table.page * table.rowsPerPage + table.rowsPerPage
+                )
+                .map(row => (
+                  <UserTableRow
+                    key={row.id}
+                    row={row}
+                    selected={table.selected.includes(row.id)}
+                    onSelectRow={() => table.onSelectRow(row.id)}
+                  />
+                ))}
+
+              <TableEmptyRows
+                height={68}
+                emptyRows={emptyRows(
+                  table.page,
+                  table.rowsPerPage,
+                  _users.length
+                )}
               />
-              <TableBody>
-                {dataFiltered
-                  .slice(
-                    table.page * table.rowsPerPage,
-                    table.page * table.rowsPerPage + table.rowsPerPage
-                  )
-                  .map(row => (
-                    <UserTableRow
-                      key={row.id}
-                      row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
-                    />
-                  ))}
 
-                <TableEmptyRows
-                  height={68}
-                  emptyRows={emptyRows(
-                    table.page,
-                    table.rowsPerPage,
-                    _users.length
-                  )}
-                />
+              {notFound && <TableNoData searchQuery={filterName} />}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Scrollbar>
 
-                {notFound && <TableNoData searchQuery={filterName} />}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
-
-        <TablePagination
-          component="div"
-          page={table.page}
-          count={_users.length}
-          rowsPerPage={table.rowsPerPage}
-          onPageChange={table.onChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={table.onChangeRowsPerPage}
-        />
-      </Card>
+      <TablePagination
+        component="div"
+        page={table.page}
+        count={_users.length}
+        rowsPerPage={table.rowsPerPage}
+        onPageChange={table.onChangePage}
+        rowsPerPageOptions={[5, 10, 25]}
+        onRowsPerPageChange={table.onChangeRowsPerPage}
+      />
+    </Card>
+      </>
+      :<Typography variant="body1" color="initial">یوزری پیدا نشد</Typography>
+    }
     </DashboardContent>
   )
 }

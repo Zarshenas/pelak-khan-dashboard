@@ -192,7 +192,7 @@ export const Logo = forwardRef(
         width: width ?? 102,
         height: height ?? 36
       })
-    }
+    }    
 
     return (
       <Box

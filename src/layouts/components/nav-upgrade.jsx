@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
+// import Button from "@mui/material/Button"
+// import Typography from "@mui/material/Typography"
 
-import { textGradient } from "src/theme/styles"
+// import { textGradient } from "src/theme/styles"
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ export function NavUpgrade({ sx, ...other }) {
       sx={{ mb: 4, textAlign: "center", ...sx }}
       {...other}
     >
-      <Typography
+      {/* <Typography
         variant="h6"
         sx={theme => ({
           ...textGradient(
@@ -46,7 +46,7 @@ export function NavUpgrade({ sx, ...other }) {
         color="inherit"
       >
         Upgrade to Pro
-      </Button>
+      </Button> */}
     </Box>
   )
 }

@@ -19,6 +19,7 @@ export function createTheme() {
     components,
     typography,
     cssVarPrefix: "",
+    direction: "rtl",
     shouldSkipGeneratingVar
   }
 

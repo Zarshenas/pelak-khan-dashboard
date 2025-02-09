@@ -1,7 +1,5 @@
 import { useState, useCallback } from "react"
 
-import Box from "@mui/material/Box"
-import Avatar from "@mui/material/Avatar"
 import Popover from "@mui/material/Popover"
 import TableRow from "@mui/material/TableRow"
 import Checkbox from "@mui/material/Checkbox"
@@ -31,19 +29,26 @@ export function UserTableRow({ row, selected, onSelectRow }) {
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
-        <TableCell component="th" scope="row">
-          <Box gap={2} display="flex" alignItems="center">
-            <Avatar alt={row.name} src={row.avatarUrl} />
-            {row.name}
-          </Box>
+        <TableCell>{row.id}</TableCell>
+
+        <TableCell>{row.first_name}</TableCell>
+
+        <TableCell>{row.last_name}</TableCell>
+
+        <TableCell>
+          <Label >
+            {row.username}
+          </Label>
+        </TableCell>
+        <TableCell>
+          <Label color="success">
+            {row.role}
+          </Label>
         </TableCell>
 
-        <TableCell>{row.company}</TableCell>
 
-        <TableCell>{row.role}</TableCell>
-
-        <TableCell align="center">
-          {row.isVerified ? (
+        {/* <TableCell align="center">
+          {row.is_active ? (
             <Iconify
               width={22}
               icon="solar:check-circle-bold"
@@ -52,15 +57,8 @@ export function UserTableRow({ row, selected, onSelectRow }) {
           ) : (
             "-"
           )}
-        </TableCell>
-
-        <TableCell>
-          <Label color={(row.status === "banned" && "error") || "success"}>
-            {row.status}
-          </Label>
-        </TableCell>
-
-        <TableCell align="right">
+        </TableCell> */}
+        <TableCell align="center">
           <IconButton onClick={handleOpenPopover}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
