@@ -15,7 +15,7 @@ import { Logo } from "src/components/logo/logo"
 import { Scrollbar } from "src/components/scrollbar/scrollbar"
 
 import { NavUpgrade } from "../components/nav-upgrade"
-import { WorkspacesPopover } from "../components/workspaces-popover"
+// import { WorkspacesPopover } from "../components/workspaces-popover"
 
 export function NavDesktop({ sx, data, slots, workspaces, layoutQuery }) {
   const theme = useTheme()
@@ -88,7 +88,7 @@ export function NavContent({ data, slots, workspaces, sx }) {
 
   return (
     <>
-      {/* <Logo  /> */}
+      <Logo  />
 
       {slots?.topArea}
 

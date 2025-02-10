@@ -1,4 +1,4 @@
-import { Label } from "src/components/label/label"
+// import { Label } from "src/components/label/label"
 import { SvgColor } from "src/components/svg-color/svg-color"
 
 // ----------------------------------------------------------------------

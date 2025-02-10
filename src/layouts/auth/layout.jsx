@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert"
 
 import { stylesMode } from "src/theme/styles"
 
-import { Logo } from "src/components/logo/logo"
+// import { Logo } from "src/components/logo/logo"
 
 import { Main } from "./main"
 import { HeaderSection } from "../core/header-section"
