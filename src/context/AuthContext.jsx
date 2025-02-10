@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
           toast.success("خوش آمدید")
           const {access , refresh } = response.data;
-          Cookies.set('access', access, { secure: true ,sameSite:'None' });
-          Cookies.set('refresh', refresh, { secure: true ,sameSite:'None' });
+          Cookies.set('access', access, { secure: false ,sameSite: 'None' });
+          Cookies.set('refresh', refresh, { secure: false ,sameSite:'none' });
           await sleep(500);
           navigate("/" , {replace:true})
 
