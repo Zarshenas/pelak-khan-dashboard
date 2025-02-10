@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import React , { useState,useEffect , useContext ,createContext  } from 'react';
 
 import {login,logout, checkAuth  } from 'src/api/Auth';
+import { storeToken } from '../utils/store-local';
 
 // import { useRouter } from 'src/routes/hooks';
 
@@ -40,9 +41,10 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
           toast.success("خوش آمدید")
           const {access , refresh } = response.data;
-          Cookies.set('access', access, { secure: true ,sameSite: 'none' });
-          Cookies.set('refresh', refresh, { secure: true ,sameSite:'none' });
-          console.log(Cookies.get('access'))
+          // Cookies.set('access', access, { secure: true ,sameSite: 'none' });
+          // Cookies.set('refresh', refresh, { secure: true ,sameSite:'none' });
+          storeToken("access",access)
+          storeToken("refresh" ,refresh)
           await sleep(500);
           navigate("/" , {replace:true})
 

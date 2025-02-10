@@ -34,7 +34,8 @@ export function UserView() {
   const [filterName, setFilterName] = useState("")
   useEffect( ()=>{
     const getUser =async()=>{
-      const token = Cookies.get("access")
+      // const token = Cookies.get("access")
+      const token = localStorage.getItem('access');
       try {
         const response = await Users(token);
         if (response.status === 200) {

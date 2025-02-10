@@ -25,6 +25,7 @@ export const Page404 = lazy(() => import("src/pages/page-not-found"))
 
 const PublicRoute = () => {
   const accessToken = Cookies.get('access');
+  
   if (accessToken) {
     return <Navigate to="/users" replace />;
   }
