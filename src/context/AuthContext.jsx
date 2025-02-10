@@ -12,7 +12,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // const [user, setUser] = useState(null);
   const navigate = useNavigate();
-console.log("AuthP")
   const [isLoggedin, setLoggedin] = useState(false);
   const [isLoading, setLoading] = useState(true);
   // Check authentication status on app load
@@ -35,19 +34,23 @@ console.log("AuthP")
   }, [isLoggedin]);
 
   const loginUn = async (credentials) => {
+    try {
+      
       const response = await login(credentials)
       if (response.status === 200) {
           toast.success("خوش آمدید")
           const {access , refresh } = response.data;
-          Cookies.set('access', access, { secure: true });
-          Cookies.set('refresh', refresh, { secure: true  });
+          Cookies.set('access', access, { secure: false ,sameSite: "None" });
+          Cookies.set('refresh', refresh, { secure: false ,sameSite: "None" });
           await sleep(500);
           navigate("/" , {replace:true})
 
         }else if(response.status === 401){
           toast.error("نام کاربری یا رمزعبور اشتباه است")
         }
-    }
+    } catch (error) {
+      toast.error("مشکلی پیش آمده لطفا بعدا تلاش کنید")
+    }}
   
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

@@ -1,6 +1,7 @@
 import { api } from "src/services/api";
 
 export const login = async (credentials) => {
+  console.log(import.meta.env.VITE_API_BASE_URL)
     const response = await api.post(`${import.meta.env.VITE_API_BASE_URL}/auth/jwt/create`, credentials);
     return {data: response.data ,status:response.status};
   };
