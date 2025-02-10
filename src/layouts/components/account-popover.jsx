@@ -44,9 +44,6 @@ export function AccountPopover({ data = [], sx, ...other }) {
   )
 
   const logoutHandler =async () =>{
-    console.log(
-      "dd"
-    )
     await logoutUn()
   }
 
