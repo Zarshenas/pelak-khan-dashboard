@@ -30,7 +30,7 @@ export function UserTableToolbar({ numSelected, filterName, onFilterName }) {
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder="جستجوی کاربر"
           startAdornment={
             <InputAdornment position="start">
               <Iconify

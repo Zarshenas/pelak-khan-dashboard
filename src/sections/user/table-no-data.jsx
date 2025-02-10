@@ -9,13 +9,13 @@ export function TableNoData({ searchQuery, ...other }) {
       <TableCell align="center" colSpan={7}>
         <Box sx={{ py: 15, textAlign: "center" }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
-            Not found
+            کاربر پیدا نشد
           </Typography>
 
           <Typography variant="body2">
-            No results found for &nbsp;
-            <strong>&quot;{searchQuery}&quot;</strong>.
-            <br /> Try checking for typos or using complete words.
+            برای  &nbsp;
+            <strong>&quot;{searchQuery}&quot;</strong>
+            &nbsp;نتیجه ای پیدا نشد.
           </Typography>
         </Box>
       </TableCell>

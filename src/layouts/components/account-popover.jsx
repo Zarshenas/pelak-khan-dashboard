@@ -12,7 +12,7 @@ import MenuItem, { menuItemClasses } from "@mui/material/MenuItem"
 
 import { useRouter, usePathname } from "src/routes/hooks"
 
-import { _myAccount } from "src/_mock"
+// import { _myAccount } from "src/_mock"
 import { useAuth } from "src/context/AuthContext"
 
 
@@ -65,11 +65,11 @@ export function AccountPopover({ data = [], sx, ...other }) {
         {...other}
       >
         <Avatar
-          src={_myAccount.photoURL}
-          alt={_myAccount.displayName}
+          // src={_myAccount.photoURL}
+          // alt={_myAccount.displayName}
           sx={{ width: 1, height: 1 }}
         >
-          {_myAccount.displayName.charAt(0).toUpperCase()}
+          {/* {_myAccount.displayName.charAt(0).toUpperCase()} */}
         </Avatar>
       </IconButton>
 
@@ -87,11 +87,11 @@ export function AccountPopover({ data = [], sx, ...other }) {
       >
         <Box sx={{ p: 2, pb: 1.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {_myAccount?.displayName}
+            {/* {_myAccount?.displayName} */}
           </Typography>
 
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {_myAccount?.email}
+            {/* {_myAccount?.email} */}
           </Typography>
         </Box>
 
@@ -134,7 +134,7 @@ export function AccountPopover({ data = [], sx, ...other }) {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth color="error" onClick={()=>logoutHandler()} size="medium" variant="text">
-            Logout
+            خروج از حساب
           </Button>
         </Box>
       </Popover>

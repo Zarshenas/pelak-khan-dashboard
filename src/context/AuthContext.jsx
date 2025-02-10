@@ -12,7 +12,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
+console.log("AuthP")
   const [isLoggedin, setLoggedin] = useState(false);
   const [isLoading, setLoading] = useState(true);
   // Check authentication status on app load
@@ -29,11 +29,10 @@ export const AuthProvider = ({ children }) => {
         setLoggedin(false);
       }finally{
         setLoading(false);
-
       }
     };
     verifyAuth();
-  }, []);
+  }, [isLoggedin]);
 
   const loginUn = async (credentials) => {
       const response = await login(credentials)

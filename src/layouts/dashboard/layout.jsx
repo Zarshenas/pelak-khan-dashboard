@@ -44,65 +44,65 @@ export function DashboardLayout({ sx, children, header }) {
           }}
           sx={header?.sx}
           slots={{
-            topArea: (
-              <Alert severity="info" sx={{ display: "none", borderRadius: 0 }}>
-                This is an info Alert.
-              </Alert>
-            ),
-            leftArea: (
-              <>
-                <MenuButton
-                  onClick={() => setNavOpen(true)}
-                  sx={{
-                    ml: -1,
-                    [theme.breakpoints.up(layoutQuery)]: { display: "none" }
-                  }}
-                />
-                <NavMobile
-                  data={navData}
-                  open={navOpen}
-                  onClose={() => setNavOpen(false)}
-                  workspaces={_workspaces}
-                />
-              </>
-            ),
+            // topArea: (
+            //   <Alert severity="info" sx={{ display: "none", borderRadius: 0 }}>
+            //     This is an info Alert.
+            //   </Alert>
+            // ),
+            // leftArea: (
+            //   <>
+            //     <MenuButton
+            //       onClick={() => setNavOpen(true)}
+            //       sx={{
+            //         ml: -1,
+            //         [theme.breakpoints.up(layoutQuery)]: { display: "none" }
+            //       }}
+            //     />
+            //     <NavMobile
+            //       data={navData}
+            //       open={navOpen}
+            //       onClose={() => setNavOpen(false)}
+            //       workspaces={_workspaces}
+            //     />
+            //   </>
+            // ),
             rightArea: (
               <Box gap={1} display="flex" alignItems="center">
-                <Searchbar />
-                <LanguagePopover data={_langs} />
-                <NotificationsPopover data={_notifications} />
+                {/* <Searchbar /> */}
+                {/* <LanguagePopover data={_langs} /> */}
+                {/* <NotificationsPopover data={_notifications} /> */}
                 <AccountPopover
                   data={[
-                    {
-                      label: "Home",
-                      href: "/",
-                      icon: (
-                        <Iconify
-                          width={22}
-                          icon="solar:home-angle-bold-duotone"
-                        />
-                      )
-                    },
-                    {
-                      label: "Profile",
-                      href: "#",
-                      icon: (
-                        <Iconify
-                          width={22}
-                          icon="solar:shield-keyhole-bold-duotone"
-                        />
-                      )
-                    },
-                    {
-                      label: "Settings",
-                      href: "#",
-                      icon: (
-                        <Iconify
-                          width={22}
-                          icon="solar:settings-bold-duotone"
-                        />
-                      )
-                    }
+                    // {
+                    //   label: "Home",
+                    //   href: "/",
+                    //   icon: (
+                    //     <Iconify
+                    //       width={22}
+                    //       icon="solar:home-angle-bold-duotone"
+                    //     />
+                    //   )
+                    // },
+                    // {
+                    //   label: "Profile",
+                    //   href: "#",
+                    //   icon: (
+                    //     <Iconify
+                    //       width={22}
+                    //       icon="solar:shield-keyhole-bold-duotone"
+                    //     />
+                    //   )
+                    // },
+                    // {
+                    //   label: "Settings",
+                    //   href: "#",
+                    //   icon: (
+                    //     <Iconify
+                    //       width={22}
+                    //       icon="solar:settings-bold-duotone"
+                    //     />
+                    //   )
+                    // }
                   ]}
                 />
               </Box>
@@ -142,7 +142,7 @@ export function DashboardLayout({ sx, children, header }) {
         ...sx
       }}
     >
-      <Main>{children}</Main>
+      <Main sx={{mt:12}}>{children}</Main>
     </LayoutSection>
   )
 }

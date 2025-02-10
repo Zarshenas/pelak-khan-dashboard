@@ -14,11 +14,11 @@ import { DashboardLayout } from "src/layouts/dashboard"
 // ----------------------------------------------------------------------
 
 export const HomePage = lazy(() => import("src/pages/home"))
-export const BlogPage = lazy(() => import("src/pages/blog"))
+// export const BlogPage = lazy(() => import("src/pages/blog"))
 export const UserPage = lazy(() => import("src/pages/user"))
 export const SignInPage = lazy(() => import("src/pages/sign-in"))
 export const SignUpPage = lazy(() => import("src/pages/sign-up"))
-export const ProductsPage = lazy(() => import("src/pages/products"))
+// export const ProductsPage = lazy(() => import("src/pages/products"))
 export const Page404 = lazy(() => import("src/pages/page-not-found"))
 
 // ----------------------------------------------------------------------
@@ -26,7 +26,7 @@ export const Page404 = lazy(() => import("src/pages/page-not-found"))
 const PublicRoute = () => {
   const accessToken = Cookies.get('access');
   if (accessToken) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/users" replace />;
   }
 
   return <Outlet />;
@@ -75,10 +75,11 @@ export function Router() {
         </PrivateRoute>
       ),
       children: [
-        { element: <HomePage />, index: true },
+        // { element: <HomePage />, index: true },
+        {  element: <UserPage /> , index: true},
         { path: "user", element: <UserPage /> },
-        { path: "products", element: <ProductsPage /> },
-        { path: "blog", element: <BlogPage /> }
+        // { path: "products", element: <ProductsPage /> },
+        // { path: "blog", element: <BlogPage /> }
       ]
     },
     // {

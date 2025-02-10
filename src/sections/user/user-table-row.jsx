@@ -90,12 +90,12 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         >
           <MenuItem onClick={handleClosePopover}>
             <Iconify icon="solar:pen-bold" />
-            Edit
+            ویرایش
           </MenuItem>
 
           <MenuItem onClick={handleClosePopover} sx={{ color: "error.main" }}>
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
+            حذف
           </MenuItem>
         </MenuList>
       </Popover>

@@ -88,13 +88,13 @@ export function NavContent({ data, slots, workspaces, sx }) {
 
   return (
     <>
-      <Logo />
+      {/* <Logo  /> */}
 
       {slots?.topArea}
 
-      <WorkspacesPopover data={workspaces} sx={{ my: 2 }} />
+      {/* <WorkspacesPopover data={workspaces}  /> */}
 
-      <Scrollbar fillContent>
+      <Scrollbar fillContent sx={{ my: 8}}>
         <Box
           component="nav"
           display="flex"

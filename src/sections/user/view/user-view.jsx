@@ -11,7 +11,6 @@ import TablePagination from "@mui/material/TablePagination"
 
 import Cookies from "js-cookie"
 import { Users } from "src/api/Users"
-import { _users } from "src/_mock"
 import { DashboardContent } from "src/layouts/dashboard"
 
 import { Iconify } from "src/components/iconify/iconify"
@@ -30,7 +29,7 @@ import { emptyRows, applyFilter, getComparator } from "../utils"
 
 export function UserView() {
   const table = useTable()
-  const [users , setUsers] = useState({})
+  const [users , setUsers] = useState([])
 
   const [filterName, setFilterName] = useState("")
   useEffect( ()=>{
@@ -48,27 +47,26 @@ export function UserView() {
     getUser();
   },[])
   const dataFiltered = applyFilter({
-    inputData: _users,
+    inputData: users,
     comparator: getComparator(table.order, table.orderBy),
     filterName
   })
   const notFound = !dataFiltered.length && !!filterName
 console.log(dataFiltered)
-console.log(users)
   return (
     <DashboardContent>
       {users.length?
       <>
       <Box display="flex" alignItems="center" mb={5}>
       <Typography variant="h4" flexGrow={1}>
-        Users
+        کاربران
       </Typography>
       <Button
         variant="contained"
         color="inherit"
-        startIcon={<Iconify icon="mingcute:add-line" />}
+        endIcon={<Iconify icon="mingcute:add-line" />}
       >
-        New user
+        کاربر جدید
       </Button>
     </Box>
 
@@ -88,13 +86,13 @@ console.log(users)
             <UserTableHead
               order={table.order}
               orderBy={table.orderBy}
-              rowCount={_users.length}
+              rowCount={users.length}
               numSelected={table.selected.length}
               onSort={table.onSort}
               onSelectAllRows={checked =>
                 table.onSelectAllRows(
                   checked,
-                  _users.map(user => user.id)
+                  users.map(user => user.id)
                 )
               }
               headLabel={[
@@ -126,7 +124,7 @@ console.log(users)
                 emptyRows={emptyRows(
                   table.page,
                   table.rowsPerPage,
-                  _users.length
+                  users.length
                 )}
               />
 
@@ -139,11 +137,12 @@ console.log(users)
       <TablePagination
         component="div"
         page={table.page}
-        count={_users.length}
+        count={users.length}
         rowsPerPage={table.rowsPerPage}
         onPageChange={table.onChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={table.onChangeRowsPerPage}
+        labelRowsPerPage="ردیف در هر صفحه"
       />
     </Card>
       </>
