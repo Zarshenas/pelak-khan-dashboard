@@ -19,20 +19,20 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const accessToken = Cookies.get('access'); 
+        const accessToken = localStorage.getItem('access'); 
         const response = await checkAuth({token:accessToken});
         if (response.status === 200) {
           setLoggedin(true)
         }
-        // setUser(response.user);
       } catch (error) {
         setLoggedin(false);
+        console.log(error)
       }finally{
         setLoading(false);
       }
     };
     verifyAuth();
-  }, [isLoggedin]);
+  }, []);
 
   const loginUn = async (credentials) => {
     try {
@@ -45,8 +45,9 @@ export const AuthProvider = ({ children }) => {
           // Cookies.set('refresh', refresh, { secure: true ,sameSite:'none' });
           storeToken("access",access)
           storeToken("refresh" ,refresh)
+          setLoggedin(true)
           await sleep(500);
-          navigate("/" , {replace:true})
+          navigate("/dashboard/users" , {replace:true})
 
         }else if(response.status === 401){
           toast.error("نام کاربری یا رمزعبور اشتباه است")
@@ -60,9 +61,8 @@ export const AuthProvider = ({ children }) => {
   const logoutUn = async () => {
     try {
       const response = await logout();
-      console.log(response)
       if (response.status === 200) {
-        Cookies.remove('access')
+        localStorage.removeItem('access')
         setLoggedin(false)
         await sleep(500);
         navigate("/sign-in" , {replace:true})

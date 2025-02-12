@@ -19,7 +19,7 @@ export const navData = [
   // },
   {
     title: "کاربران",
-    path: "/user",
+    path: "/dashboard/users",
     icon: icon("ic-user")
   },
   // {

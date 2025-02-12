@@ -24,12 +24,12 @@ export const Page404 = lazy(() => import("src/pages/page-not-found"))
 // ----------------------------------------------------------------------
 
 const PublicRoute = () => {
-  const accessToken = Cookies.get('access');
-  
+  const accessToken = localStorage.getItem("access");
+  console.log("Access Token:", accessToken);
+  console.log(accessToken)
   if (accessToken) {
-    return <Navigate to="/users" replace />;
+    return <Navigate to="/dashboard/users" replace />;
   }
-
   return <Outlet />;
 };
 
@@ -39,8 +39,7 @@ const PrivateRoute = ({ children }) => {
   if (isLoading) {
     return <div>Loading...</div>; 
   }
-  // return isLoggedin ? children : <Navigate to="/sign-in" />;
-  return isLoggedin ? children : children;
+  return isLoggedin ? children : <Navigate to="/" />;
 };
 
 
@@ -66,6 +65,35 @@ const renderFallback = (
 export function Router() {
   return useRoutes([
     {
+      element: 
+      (<PublicRoute>
+        <AuthLayout>
+          <Outlet/>
+        </AuthLayout>
+      </PublicRoute>)
+      ,
+      path: "/",
+      children: [
+        {
+          path: "sign-in",
+          element: (
+            <AuthLayout>
+              <SignInPage />
+            </AuthLayout>
+          ),
+        },
+        {
+          path: "sign-up",
+          element: (
+            <AuthLayout>
+              <SignUpPage />
+            </AuthLayout>
+          ),
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
       element: (
         <PrivateRoute>
           <DashboardLayout>
@@ -76,57 +104,12 @@ export function Router() {
         </PrivateRoute>
       ),
       children: [
-        // { element: <HomePage />, index: true },
-        {  element: <UserPage /> , index: true},
-        { path: "user", element: <UserPage /> },
-        // { path: "products", element: <ProductsPage /> },
-        // { path: "blog", element: <BlogPage /> }
-      ]
+        { element: <HomePage />, index: true },
+        { path: "users", element: <UserPage /> }, 
+      ],
     },
-    // {
-    //   element:<PublicRoute />,
-    //   path: '/',
-    //   children: [
-    //     {path: "sign-in",
-    //       element: (
-    //         <AuthLayout>
-    //           <SignInPage />
-    //         </AuthLayout>
-    //       )
-    //     },
-    //     {
-    //       path:"sign-up",
-    //       element: (
-    //         <AuthLayout>
-    //           <SignUpPage />
-    //         </AuthLayout>
-    //       )
-    //     }
-    //   ]
-    // },
-    {
-      path: "sign-in",
-      element: (
-        <AuthLayout>
-          <SignInPage />
-        </AuthLayout>
-      )
-    },
-    {
-      path: "sign-up",
-      element: (
-        <AuthLayout>
-          <SignUpPage />
-        </AuthLayout>
-      )
-    },
-    {
-      path: "404",
-      element: <Page404 />
-    },
-    {
-      path: "*",
-      element: <Navigate to="/404" replace />
-    }
-  ])
+    
+    { path: "404", element: <Page404 /> },
+    { path: "*", element: <Navigate to="/404" replace /> },
+  ]);
 }
