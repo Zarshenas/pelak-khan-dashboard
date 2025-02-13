@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography"
 import TableContainer from "@mui/material/TableContainer"
 import TablePagination from "@mui/material/TablePagination"
 
-import Cookies from "js-cookie"
+// import Cookies from "js-cookie"
 import { Users } from "src/api/Users"
 import { DashboardContent } from "src/layouts/dashboard"
 

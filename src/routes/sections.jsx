@@ -1,4 +1,4 @@
-import Cookies from "js-cookie"
+// import Cookies from "js-cookie"
 import { lazy, Suspense } from "react"
 import { Outlet, Navigate, useRoutes } from "react-router-dom"
 
