@@ -23,23 +23,20 @@ export const Page404 = lazy(() => import("src/pages/page-not-found"))
 
 // ----------------------------------------------------------------------
 
-const PublicRoute = () => {
-  const accessToken = localStorage.getItem("access");
-  console.log("Access Token:", accessToken);
-  console.log(accessToken)
-  if (accessToken) {
-    return <Navigate to="/dashboard/users" replace />;
-  }
-  return <Outlet />;
-};
+const PrivateRoute = () => {
+  const { isLoggedin, isLoading } = useAuth();
 
-
-const PrivateRoute = ({ children }) => {
-  const { isLoggedin , isLoading } = useAuth();
   if (isLoading) {
     return <div>Loading...</div>; 
   }
-  return isLoggedin ? children : <Navigate to="/" />;
+
+  return isLoggedin ? <Outlet /> : <Navigate to="/sign-in" replace />;
+};
+
+const PublicRoute = () => {
+  const { isLoggedin } = useAuth();
+  
+  return isLoggedin ? <Navigate to="/dashboard/users" replace /> : <Outlet />;
 };
 
 
@@ -65,50 +62,42 @@ const renderFallback = (
 export function Router() {
   return useRoutes([
     {
-      element: 
-      (<PublicRoute>
-        <AuthLayout>
-          <Outlet/>
-        </AuthLayout>
-      </PublicRoute>)
-      ,
       path: "/",
+      element: <PublicRoute />, 
+      
       children: [
-        {
-          path: "sign-in",
-          element: (
-            <AuthLayout>
-              <SignInPage />
-            </AuthLayout>
-          ),
-        },
-        {
-          path: "sign-up",
-          element: (
-            <AuthLayout>
-              <SignUpPage />
-            </AuthLayout>
-          ),
-        },
+        { element: <AuthLayout >
+          <Suspense fallback={renderFallback}> <Outlet /> </Suspense>
+        </AuthLayout>, children: [
+          { path: "sign-in", element: <SignInPage /> },
+          { path: "sign-up", element: <SignUpPage /> },
+          { index: true, element: <Navigate to="/sign-in" replace /> }
+        ]
+         },
+        
       ],
     },
+
     {
       path: "/dashboard",
-      element: (
-        <PrivateRoute>
-          <DashboardLayout>
-            <Suspense fallback={renderFallback}>
-              <Outlet />
-            </Suspense>
-          </DashboardLayout>
-        </PrivateRoute>
-      ),
+      element: <PrivateRoute />, 
       children: [
-        { element: <HomePage />, index: true },
-        { path: "users", element: <UserPage /> }, 
+        {
+          element: (
+            <DashboardLayout>
+              <Suspense fallback={renderFallback}>
+                <Outlet />
+              </Suspense>
+            </DashboardLayout>
+          ),
+          children: [
+            { path: "users", element: <UserPage /> },
+            { element: <HomePage />, index: true },
+          ],
+        },
       ],
     },
-    
+
     { path: "404", element: <Page404 /> },
     { path: "*", element: <Navigate to="/404" replace /> },
   ]);

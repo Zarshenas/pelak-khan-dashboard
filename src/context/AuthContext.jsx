@@ -25,8 +25,9 @@ export const AuthProvider = ({ children }) => {
           setLoggedin(true)
         }
       } catch (error) {
-        setLoggedin(false);
         console.log(error)
+        localStorage.removeItem('access')
+        setLoggedin(false);
       }finally{
         setLoading(false);
       }
@@ -53,7 +54,10 @@ export const AuthProvider = ({ children }) => {
           toast.error("نام کاربری یا رمزعبور اشتباه است")
         }
     } catch (error) {
-      toast.error("مشکلی پیش آمده لطفا بعدا تلاش کنید")
+      if (error.response.data.detail === "No active account found with the given credentials") {
+        toast.error("حساب کاربری فعال با این مشخصات پیدا نشد.")
+        
+      }
     }}
   
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

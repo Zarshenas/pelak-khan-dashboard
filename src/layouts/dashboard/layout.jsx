@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material/styles"
 
 // import { _langs, _notifications } from "src/_mock"
 
-// import { Iconify } from "src/components/iconify/iconify"
+import { Iconify } from "src/components/iconify/iconify"
 
 import { Main } from "./main"
 import { layoutClasses } from "../classes"
@@ -93,16 +93,16 @@ export function DashboardLayout({ sx, children, header }) {
                     //     />
                     //   )
                     // },
-                    // {
-                    //   label: "Settings",
-                    //   href: "#",
-                    //   icon: (
-                    //     <Iconify
-                    //       width={22}
-                    //       icon="solar:settings-bold-duotone"
-                    //     />
-                    //   )
-                    // }
+                    {
+                      label: "نوتیفیکیشن ها",
+                      href: "#",
+                      icon: (
+                        <Iconify
+                          width={22}
+                          icon="solar:bell-bing-bold-duotone"
+                        />
+                      )
+                    }
                   ]}
                 />
               </Box>

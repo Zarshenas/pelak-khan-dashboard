@@ -54,3 +54,8 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
+.css-1kty9di-MuiFormLabel-root-MuiInputLabel-root{
+  left: inherit !important;
+  right: 1.75rem !important;
+  transform-origin: right !important;
+}

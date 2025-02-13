@@ -38,7 +38,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'prefer-destructuring': [0, { object: false, array: false }],
     'no-use-before-define': 'off',
-
+    "dot-notation": 0,
     // React
     'react/no-children-prop': 0,
     'react/react-in-jsx-scope': 0,

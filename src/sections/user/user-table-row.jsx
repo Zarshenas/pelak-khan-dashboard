@@ -1,26 +1,67 @@
-import { useState, useCallback } from "react"
-
-import Popover from "@mui/material/Popover"
-import TableRow from "@mui/material/TableRow"
-import Checkbox from "@mui/material/Checkbox"
-import MenuList from "@mui/material/MenuList"
-import TableCell from "@mui/material/TableCell"
-import IconButton from "@mui/material/IconButton"
-import MenuItem, { menuItemClasses } from "@mui/material/MenuItem"
-
-import { Label } from "src/components/label/label"
+import { useState, useCallback } from "react";
+import { 
+  TableRow, TableCell, Checkbox, IconButton, 
+  Popover, MenuList, MenuItem, Dialog, DialogTitle, 
+  DialogContent, TextField, DialogActions, Button 
+} from "@mui/material";
 import { Iconify } from "src/components/iconify/iconify"
+import { deleteUser, updateUser } from "../../api/Users"
+
+
 
 export function UserTableRow({ row, selected, onSelectRow }) {
-  const [openPopover, setOpenPopover] = useState(null)
+  const [openPopover, setOpenPopover] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [userData, setUserData] = useState({ ...row });
 
   const handleOpenPopover = useCallback(event => {
-    setOpenPopover(event.currentTarget)
-  }, [])
+    setOpenPopover(event.currentTarget);
+  }, []);
 
   const handleClosePopover = useCallback(() => {
-    setOpenPopover(null)
-  }, [])
+    setOpenPopover(null);
+  }, []);
+
+  const handleDeleteUser = async () => {
+    try {
+      const token = localStorage.getItem("access");
+      const response = await deleteUser(row.id, token);
+      if (response.status === 204) {
+        handleClosePopover();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error.status);
+      handleClosePopover();
+    }
+  };
+
+  const handleOpenEditModal = () => {
+    setUserData({ ...row });
+    setOpenEditModal(true);
+    handleClosePopover();
+  };
+
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
+  };
+
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      const token = localStorage.getItem("access");
+      const response = await updateUser(userData.id, userData, token);
+      if (response.status === 200) {
+        setOpenEditModal(false);
+        window.location.reload(); 
+      }
+    } catch (error) {
+      console.error("Update error:", error);
+    }
+  };
 
   return (
     <>
@@ -28,36 +69,11 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
-
         <TableCell>{row.id}</TableCell>
-
         <TableCell>{row.first_name}</TableCell>
-
         <TableCell>{row.last_name}</TableCell>
-
-        <TableCell>
-          <Label >
-            {row.username}
-          </Label>
-        </TableCell>
-        <TableCell>
-          <Label color="success">
-            {row.role}
-          </Label>
-        </TableCell>
-
-
-        {/* <TableCell align="center">
-          {row.is_active ? (
-            <Iconify
-              width={22}
-              icon="solar:check-circle-bold"
-              sx={{ color: "success.main" }}
-            />
-          ) : (
-            "-"
-          )}
-        </TableCell> */}
+        <TableCell>{row.username}</TableCell>
+        <TableCell>{row.role}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleOpenPopover}>
             <Iconify icon="eva:more-vertical-fill" />
@@ -65,6 +81,7 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         </TableCell>
       </TableRow>
 
+      {/* Popover Menu */}
       <Popover
         open={!!openPopover}
         anchorEl={openPopover}
@@ -80,25 +97,67 @@ export function UserTableRow({ row, selected, onSelectRow }) {
             width: 140,
             display: "flex",
             flexDirection: "column",
-            [`& .${menuItemClasses.root}`]: {
-              px: 1,
-              gap: 2,
-              borderRadius: 0.75,
-              [`&.${menuItemClasses.selected}`]: { bgcolor: "action.selected" }
-            }
           }}
         >
-          <MenuItem onClick={handleClosePopover}>
+          <MenuItem onClick={handleOpenEditModal}>
             <Iconify icon="solar:pen-bold" />
             ویرایش
           </MenuItem>
-
-          <MenuItem onClick={handleClosePopover} sx={{ color: "error.main" }}>
+          <MenuItem onClick={handleDeleteUser} sx={{ color: "error.main" }}>
             <Iconify icon="solar:trash-bin-trash-bold" />
             حذف
           </MenuItem>
         </MenuList>
       </Popover>
+
+      {/* Edit User Modal */}
+      <Dialog closeAfterTransition={false}  open={openEditModal} onClose={handleCloseEditModal} fullWidth maxWidth="sm">
+        <DialogTitle>ویرایش اطلاعات کاربر</DialogTitle>
+        <DialogContent dividers sx={{ direction: "rtl" }}>
+        <TextField 
+          fullWidth 
+          margin="dense" 
+          label="نام" 
+          name="first_name"
+          value={userData.first_name} 
+          onChange={handleChange} 
+          InputLabelProps={{ sx: { textAlign: "right", direction: "rtl" } }} 
+        />
+        <TextField 
+          fullWidth 
+          margin="dense" 
+          label="نام خانوادگی" 
+          name="last_name"
+          value={userData.last_name} 
+          onChange={handleChange} 
+          InputLabelProps={{ sx: { textAlign: "right", direction: "rtl" } }} 
+        />
+        <TextField 
+          fullWidth 
+          margin="dense" 
+          label="نام کاربری" 
+          name="username"
+          value={userData.username} 
+          onChange={handleChange} 
+          InputLabelProps={{ sx: { textAlign: "right", direction: "rtl" } }} 
+        />
+        <TextField 
+          fullWidth 
+          margin="dense" 
+          label="نقش" 
+          name="role"
+          value={userData.role} 
+          onChange={handleChange} 
+          InputLabelProps={{ sx: { textAlign: "right", direction: "rtl" } }} 
+        />
+      </DialogContent>
+        <DialogActions sx={{display: "flex", justifyContent: "space-around"}}>
+          <Button variant="text" onClick={handleCloseEditModal} sx={{ color: "error.main" }}>لغو</Button>
+          <Button variant="contained" onClick={handleSaveChanges}>
+            ذخیره تغییرات
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
-  )
+  );
 }

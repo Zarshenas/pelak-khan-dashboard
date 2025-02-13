@@ -53,7 +53,6 @@ export function UserView() {
     filterName
   })
   const notFound = !dataFiltered.length && !!filterName
-console.log(dataFiltered)
   return (
     <DashboardContent>
       {users.length?

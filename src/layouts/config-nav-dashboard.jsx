@@ -1,6 +1,6 @@
 // import { Label } from "src/components/label/label"
 import { SvgColor } from "src/components/svg-color/svg-color"
-
+import DirectionsCarTwoToneIcon from '@mui/icons-material/DirectionsCarTwoTone';
 // ----------------------------------------------------------------------
 
 const icon = name => (
@@ -21,6 +21,21 @@ export const navData = [
     title: "کاربران",
     path: "/dashboard/users",
     icon: icon("ic-user")
+  },
+  {
+    title: "پلاک",
+    path: "/dashboard/licenseplate",
+    icon: icon("ic-blog")
+  },
+  {
+    title: "ماشین ها",
+    path: "/dashboard/cars",
+    icon: <DirectionsCarTwoToneIcon/>
+  },
+  {
+    title: "مجوز ها",
+    path: "/dashboard/permitions",
+    icon: icon("ic-disabled")
   },
   // {
   //   title: "Product",
