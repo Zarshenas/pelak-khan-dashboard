@@ -13,15 +13,21 @@ import TablePagination from "@mui/material/TablePagination"
 import { Users } from "src/api/Users"
 import { DashboardContent } from "src/layouts/dashboard"
 
+import LinearProgress, {
+  linearProgressClasses
+} from "@mui/material/LinearProgress"
+
 import { Iconify } from "src/components/iconify/iconify"
 import { Scrollbar } from "src/components/scrollbar/scrollbar"
 
+import { varAlpha } from "src/theme/styles"
 import { TableNoData } from "../table-no-data"
 import { UserTableRow } from "../user-table-row"
 import { UserTableHead } from "../user-table-head"
 import { TableEmptyRows } from "../table-empty-rows"
 import { UserTableToolbar } from "../user-table-toolbar"
 import { emptyRows, applyFilter, getComparator } from "../utils"
+
 
 
 
@@ -82,8 +88,9 @@ export function UserView() {
 
       <Scrollbar>
         <TableContainer sx={{ overflow: "unset" }}>
-          <Table sx={{ minWidth: 800 }}>
+          <Table  sx={{ minWidth: 800 }}>
             <UserTableHead
+            
               order={table.order}
               orderBy={table.orderBy}
               rowCount={users.length}
@@ -99,9 +106,16 @@ export function UserView() {
                 { id: "id", label: "ID" },
                 { id: "first_name", label: "نام" },
                 { id: "last_name", label: "نام خانوادگی" },
+                { id: "email", label: "ایمیل" },
+                { id: "password", label: "رمزعبور" },
+                { id: "phone_number", label: "تلفن همراه" },
                 { id: "username", label: "نام کاربری" },
+                { id: "is_staff", label: "is_staff" },
+                { id: "is_active", label: "is_active" },
+                { id: "is_superuser", label: "is_superuser" },
+                { id: "last_login", label: "last_login" },
+                { id: "date_joined", label: "date_joined" },
                 { id: "role", label: "نقش" },
-                // { id: "is_active", label: "Verified", align: "center" },
                 { id: "" }
               ]}
             />
@@ -146,7 +160,22 @@ export function UserView() {
       />
     </Card>
       </>
-      :<Typography variant="body1" color="initial">یوزری پیدا نشد</Typography>
+      :<Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      flex="1 1 auto"
+    >
+      <LinearProgress
+        sx={{
+          width: 1,
+          maxWidth: 320,
+          bgcolor: theme =>
+            varAlpha(theme.vars.palette.text.primaryChannel, 0.16),
+          [`& .${linearProgressClasses.bar}`]: { bgcolor: "text.primary" }
+        }}
+      />
+    </Box>
     }
     </DashboardContent>
   )

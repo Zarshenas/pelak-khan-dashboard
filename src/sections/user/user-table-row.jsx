@@ -2,11 +2,14 @@ import { useState, useCallback } from "react";
 import { 
   TableRow, TableCell, Checkbox, IconButton, 
   Popover, MenuList, MenuItem, Dialog, DialogTitle, 
-  DialogContent, TextField, DialogActions, Button 
+  DialogContent, TextField, DialogActions, Button, FormControlLabel, 
+  Box
 } from "@mui/material";
 import { Iconify } from "src/components/iconify/iconify"
+import toast, { Toaster } from "react-hot-toast";
 import { deleteUser, updateUser } from "../../api/Users"
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 
 export function UserTableRow({ row, selected, onSelectRow }) {
@@ -50,30 +53,57 @@ export function UserTableRow({ row, selected, onSelectRow }) {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const handleCheckBoxChange = (e) => {
+    setUserData((prev)=> ({ ...prev, [e.target.name]: e.target.checked }));
+  };
+
   const handleSaveChanges = async () => {
     try {
       const token = localStorage.getItem("access");
       const response = await updateUser(userData.id, userData, token);
       if (response.status === 200) {
+        toast.success("اطلاعات کاربر با موفقیت ویرایش شد.");
+        await sleep(1500);
         setOpenEditModal(false);
         window.location.reload(); 
       }
     } catch (error) {
       console.error("Update error:", error);
+      toast.error("خطا در ویرایش اطلاعات کاربر");
     }
   };
-
+console.log(row);
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
-        <TableCell>{row.id}</TableCell>
-        <TableCell>{row.first_name}</TableCell>
-        <TableCell>{row.last_name}</TableCell>
-        <TableCell>{row.username}</TableCell>
-        <TableCell>{row.role}</TableCell>
+        <TableCell align="center">{row.id}</TableCell>
+        <TableCell align="center">{row.first_name}</TableCell>
+        <TableCell align="center">{row.last_name}</TableCell>
+        <TableCell align="center">{row.email}</TableCell>
+        <TableCell align="center">{row.password}</TableCell>
+        <TableCell align="center">{row.phone_number}</TableCell>
+        <TableCell align="center">{row.username}</TableCell>
+        <TableCell align="center">{row.is_staff ? (
+            <Iconify width={22} icon="solar:check-circle-bold" sx={{ color: 'success.main' }} />
+          ) : (
+            '-'
+          )}</TableCell>
+        <TableCell align="center">{row.is_active ? (
+            <Iconify width={22} icon="solar:check-circle-bold" sx={{ color: 'success.main' }} />
+          ) : (
+            '-'
+          )}</TableCell>
+        <TableCell align="center">{row.is_superuser ? (
+            <Iconify width={22} icon="solar:check-circle-bold" sx={{ color: 'success.main' }} />
+          ) : (
+            '-'
+          )}</TableCell>
+        <TableCell align="center">{row.last_login&&row.last_login.toString()}</TableCell>
+        <TableCell align="center">{row.date_joined&&row.date_joined.toString()}</TableCell>
+        <TableCell align="center">{row.role}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleOpenPopover}>
             <Iconify icon="eva:more-vertical-fill" />
@@ -150,6 +180,48 @@ export function UserTableRow({ row, selected, onSelectRow }) {
           onChange={handleChange} 
           InputLabelProps={{ sx: { textAlign: "right", direction: "rtl" } }} 
         />
+        <Box display="flex" justifyContent="space-evenly">
+        <FormControlLabel
+          label="is_staff"
+
+          control={
+            <Checkbox  
+            margin="dense" 
+            label="is_staff" 
+            name="is_staff"
+            checked={userData.is_staff} 
+            onChange={handleCheckBoxChange} 
+        />
+          }
+        />
+        <FormControlLabel
+          label="is_active"
+          
+          control={
+            <Checkbox  
+            margin="dense" 
+            label="is_active" 
+            name="is_active"
+            checked={userData.is_active} 
+            onChange={handleCheckBoxChange} 
+        />
+          }
+        />
+        <FormControlLabel
+          label="is_superuser"
+          
+          control={
+            <Checkbox  
+            margin="dense" 
+            label="is_superuser" 
+            name="is_superuser"
+            checked={userData.is_superuser} 
+            onChange={handleCheckBoxChange} 
+        />
+          }
+        />
+      <Toaster/>
+        </Box>
       </DialogContent>
         <DialogActions sx={{display: "flex", justifyContent: "space-around"}}>
           <Button variant="text" onClick={handleCloseEditModal} sx={{ color: "error.main" }}>لغو</Button>
