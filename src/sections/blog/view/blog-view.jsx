@@ -2,7 +2,7 @@ import { useState, useCallback } from "react"
 
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import Grid2 from "@mui/material/Unstable_Grid2"
+import { Grid2 } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import Pagination from "@mui/material/Pagination"
 

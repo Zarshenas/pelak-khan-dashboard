@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography"
 import { _products } from "src/_mock"
 import { DashboardContent } from "src/layouts/dashboard"
 
-import Grid2 from "@mui/material/Unstable_Grid2"
+import { Grid2 } from "@mui/material"
 import { ProductItem } from "../product-item"
 import { ProductSort } from "../product-sort"
 import { CartIcon } from "../product-cart-widget"
