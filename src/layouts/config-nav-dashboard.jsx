@@ -37,6 +37,11 @@ export const navData = [
     path: "/dashboard/permitions",
     icon: icon("ic-disabled")
   },
+  {
+    title: "پروفایل",
+    path: "/dashboard/profile",
+    icon: icon("ic-user")
+  },
   // {
   //   title: "Product",
   //   path: "/products",

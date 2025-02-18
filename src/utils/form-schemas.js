@@ -32,3 +32,18 @@ export const signinSchema = yup.object({
     .string('رمزعبور را وارد کنید')
     .required(' رمزعبور الزامی است'),
 });
+
+
+export const changePasswordSchema = yup.object({
+  oldPassword: yup
+    .string('رمزعبور قدیمی را وارد کنید')
+    .required(' رمزعبور قدیمی الزامی است')
+    .notOneOf([yup.ref('newPassword'),null],'رمزعبور جدید و رمز عبور جدید یکی هستند'),
+  newPassword: yup
+    .string('رمزعبور جدید را وارد کنید')
+    .required(' رمزعبور جدید الزامی است'),
+  confirmPassword: yup
+    .string('تایید رمزعبور را وارد کنید')
+    .required('تایید رمزعبور الزامی است')
+    .oneOf([yup.ref('newPassword'), null], 'رمزعبور جدید و تایید رمز عبور یکی نیستند'),
+});
