@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid2 from "@mui/material/Unstable_Grid2"
 import Typography from "@mui/material/Typography"
 
 import { _tasks, _posts, _timeline } from "src/_mock"
@@ -23,8 +23,8 @@ export function OverviewAnalyticsView() {
         Hi, Welcome back 👋
       </Typography>
 
-      <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
+      <Grid2 container spacing={3}>
+        <Grid2 xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="Weekly sales"
             percent={2.6}
@@ -44,9 +44,9 @@ export function OverviewAnalyticsView() {
               series: [22, 8, 35, 50, 82, 84, 77, 12]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid2 xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="New users"
             percent={-0.1}
@@ -69,9 +69,9 @@ export function OverviewAnalyticsView() {
               series: [56, 47, 40, 62, 73, 30, 23, 54]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid2 xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="Purchase orders"
             percent={2.8}
@@ -92,9 +92,9 @@ export function OverviewAnalyticsView() {
               series: [40, 70, 50, 28, 70, 75, 7, 64]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid2 xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="Messages"
             percent={3.6}
@@ -117,9 +117,9 @@ export function OverviewAnalyticsView() {
               series: [56, 30, 23, 54, 47, 40, 62, 73]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={4}>
+        <Grid2 xs={12} md={6} lg={4}>
           <AnalyticsCurrentVisits
             title="Current visits"
             chart={{
@@ -131,9 +131,9 @@ export function OverviewAnalyticsView() {
               ]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid2 xs={12} md={6} lg={8}>
           <AnalyticsWebsiteVisits
             title="Website visits"
             subheader="(+43%) than last year"
@@ -155,9 +155,9 @@ export function OverviewAnalyticsView() {
               ]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid2 xs={12} md={6} lg={8}>
           <AnalyticsConversionRates
             title="Conversion rates"
             subheader="(+43%) than last year"
@@ -169,9 +169,9 @@ export function OverviewAnalyticsView() {
               ]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={4}>
+        <Grid2 xs={12} md={6} lg={4}>
           <AnalyticsCurrentSubject
             title="Current subject"
             chart={{
@@ -190,17 +190,17 @@ export function OverviewAnalyticsView() {
               ]
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid2 xs={12} md={6} lg={8}>
           <AnalyticsNews title="News" list={_posts.slice(0, 5)} />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={4}>
+        <Grid2 xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="Order timeline" list={_timeline} />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={4}>
+        <Grid2 xs={12} md={6} lg={4}>
           <AnalyticsTrafficBySite
             title="Traffic by site"
             list={[
@@ -210,12 +210,12 @@ export function OverviewAnalyticsView() {
               { value: "twitter", label: "Twitter", total: 443232 }
             ]}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid2 xs={12} md={6} lg={8}>
           <AnalyticsTasks title="Tasks" list={_tasks} />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </DashboardContent>
   )
 }

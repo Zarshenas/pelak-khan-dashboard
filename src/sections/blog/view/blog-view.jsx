@@ -2,7 +2,7 @@ import { useState, useCallback } from "react"
 
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid2 from "@mui/material/Unstable_Grid2"
 import Typography from "@mui/material/Typography"
 import Pagination from "@mui/material/Pagination"
 
@@ -57,13 +57,13 @@ export function BlogView() {
         />
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid2 container spacing={3}>
         {_posts.map((post, index) => {
           const latestPostLarge = index === 0
           const latestPost = index === 1 || index === 2
 
           return (
-            <Grid
+            <Grid2
               key={post.id}
               xs={12}
               sm={latestPostLarge ? 12 : 6}
@@ -74,10 +74,10 @@ export function BlogView() {
                 latestPost={latestPost}
                 latestPostLarge={latestPostLarge}
               />
-            </Grid>
+            </Grid2>
           )
         })}
-      </Grid>
+      </Grid2>
 
       <Pagination count={10} color="primary" sx={{ mt: 8, mx: "auto" }} />
     </DashboardContent>
