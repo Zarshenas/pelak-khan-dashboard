@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async"
 
 import { CONFIG } from "src/config-global"
 
-import { ProfileView } from "../sections/profile/view/profile-view"
+import CarView from "../sections/cars/view/car-view"
 
 // ----------------------------------------------------------------------
 
@@ -10,10 +10,10 @@ export default function Page() {
   return (
     <>
       <Helmet>
-        <title> {`پروفایل - ${CONFIG.appName}`}</title>
+        <title> {`ماشین ها - ${CONFIG.appName}`}</title>
       </Helmet>
 
-      <ProfileView />
+      <CarView />
     </>
   )
 }

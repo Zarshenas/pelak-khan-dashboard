@@ -18,13 +18,18 @@ export const navData = [
   //   icon: icon("ic-analytics")
   // },
   {
+    title: "پروفایل",
+    path: "/dashboard/profile",
+    icon: icon("ic-user")
+  },
+  {
     title: "کاربران",
     path: "/dashboard/users",
     icon: icon("ic-user")
   },
   {
     title: "پلاک",
-    path: "/dashboard/licenseplate",
+    path: "/dashboard/plate",
     icon: icon("ic-blog")
   },
   {
@@ -34,14 +39,10 @@ export const navData = [
   },
   {
     title: "مجوز ها",
-    path: "/dashboard/permitions",
+    path: "/dashboard/permisions",
     icon: icon("ic-disabled")
   },
-  {
-    title: "پروفایل",
-    path: "/dashboard/profile",
-    icon: icon("ic-user")
-  },
+  
   // {
   //   title: "Product",
   //   path: "/products",

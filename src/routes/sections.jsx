@@ -14,7 +14,9 @@ import { DashboardLayout } from "src/layouts/dashboard"
 // ----------------------------------------------------------------------
 
 export const HomePage = lazy(() => import("src/pages/home"))
-// export const BlogPage = lazy(() => import("src/pages/blog"))
+export const PlatePage = lazy(() => import("src/pages/Plate"))
+export const PermisionPage = lazy(() => import("src/pages/permisions"))
+export const CarsPage = lazy(() => import("src/pages/cars"))
 export const UserPage = lazy(() => import("src/pages/user"))
 export const SignInPage = lazy(() => import("src/pages/sign-in"))
 export const SignUpPage = lazy(() => import("src/pages/sign-up"))
@@ -93,6 +95,9 @@ export function Router() {
           children: [
             { path: "users", element: <UserPage /> },
             { path: "profile", element: <ProfilePage /> },
+            { path: "plate", element: <PlatePage /> },
+            { path: "Cars", element: <CarsPage /> },
+            { path: "permisions", element: <PermisionPage /> },
             { element: <HomePage />, index: true },
           ],
         },
